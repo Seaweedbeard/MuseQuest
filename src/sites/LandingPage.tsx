@@ -18,7 +18,7 @@ function LandingPage() {
                     interactive and fun. 
                 </p>
                 <Button.Success onClick={() => routeChange("/create")}>
-                    Cet started creating your first MuseQuest
+                    Get started creating MuseQuests
                 </Button.Success>
                 <br/>
                 <Button.Success onClick={() => routeChange("/browse")}>
