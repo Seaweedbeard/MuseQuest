@@ -1,6 +1,8 @@
 import * as React from 'react';
+//import useState from 'react';
 import { Component } from 'react';
 import { Alert, Button, Card, Form } from '../widgets';
+import AddQuestion from '../components/addQuestion';
 
 interface QuizQuestion {
     question: string;
@@ -20,6 +22,7 @@ interface Quiz {
 
 interface CreateMQState {
     quiz: Quiz;
+    showAddQuestion: boolean;
 }
 
 class CreateMQ extends Component<{}, CreateMQState> {
@@ -37,18 +40,9 @@ class CreateMQ extends Component<{}, CreateMQState> {
                         answers: [{ answer: "", correct: false }]
                     }
                 ]
-            }
+            },
+            showAddQuestion: false
         };
-    }
-
-    handleNext = () => {
-        const { title, description, author } = this.state.quiz;
-        if(title === "" || description === "" || author === "") {
-            alert("Please fill out all non-optional fields.");
-            return;
-        }
-
-        console.log(this.state.quiz);
     }
 
     handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: keyof Quiz) => {
@@ -60,8 +54,34 @@ class CreateMQ extends Component<{}, CreateMQState> {
         });
     }
 
+    handleNext = () => {
+        const { title, description, author } = this.state.quiz;
+        if(title === "" || description === "" || author === "") {
+            alert("Please fill out all non-optional fields.");
+            return;
+        }
+
+        //display AddQuestion component below the CreateMQ component when the user clicks the button
+        this.setState({
+            showAddQuestion: true
+        });
+
+        console.log(this.state.quiz);
+    }
+
+    addQuestionToQuiz = (newQuestion: any) => {
+        this.setState(prevState => ({
+            quiz: {
+                ...prevState.quiz,
+                questions: [...prevState.quiz.questions, newQuestion]
+            }
+        }));
+        console.log(this.state.quiz);
+    }
+
     render() {
         const { title, description, author, media } = this.state.quiz;
+        const showAddQuestion = this.state.showAddQuestion;
         return (
             <>
                 <Card title="Create a new MuseQuest">
@@ -96,6 +116,13 @@ class CreateMQ extends Component<{}, CreateMQState> {
                         Create MuseQuest
                     </Button.Success>
                 </Card>
+                {this.state.showAddQuestion && 
+                //pass amount of questions to AddQuestion component
+                    <AddQuestion 
+                        addQuestion={this.addQuestionToQuiz}
+                        questionCount={this.state.quiz.questions.length}
+                    />
+                }
             </>
         )
     }
