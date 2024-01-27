@@ -3,7 +3,8 @@ import { Component } from 'react';
 import { Alert, Button, Card, Form } from '../../widgets';
 
 interface QuizAnswer {
-    answer: string;
+    answer: number;
+    correct: boolean;
 }
 
 interface AddAnswerProps {
@@ -12,7 +13,7 @@ interface AddAnswerProps {
 
 interface AddQuestionState {
     answers: {
-        answer: string;
+        answer: number;
         correct: boolean;
     };
 }
@@ -21,20 +22,21 @@ class NumberInput extends Component<AddAnswerProps, AddQuestionState> {
     constructor(props: AddAnswerProps) {
         super(props);
         this.state = {
-            answers: { answer: "", correct: true }
+            answers: { answer: 0, correct: true }
         };
     }
 
     handleAnswerChange = (event: any) => {
-        this.setState({ answers: event.target.value });
+        this.setState({ answers: {
+            answer: event.target.value,
+            correct: true
+        }});
     }
 
-    // Methods to manage answers...
-
     submitAnswer = () => {
-        this.props.addAnswer({
-            answer: this.state.answers.answer
-        });
+        this.props.addAnswer(
+            this.state.answers
+        );
     }
 
     render() {

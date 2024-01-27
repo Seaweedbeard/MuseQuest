@@ -9,6 +9,7 @@ interface QuizQuestion {
     answers: Array<{
         answer: string;
         correct: boolean;
+        type: string;
     }>;
 }
 
@@ -34,12 +35,7 @@ class CreateMQ extends Component<{}, CreateMQState> {
                 description: "",
                 author: "",
                 media: "",
-                questions: [
-                    {
-                        question: "",
-                        answers: [{ answer: "", correct: false }]
-                    }
-                ]
+                questions: []
             },
             showAddQuestion: false
         };
@@ -65,23 +61,22 @@ class CreateMQ extends Component<{}, CreateMQState> {
         this.setState({
             showAddQuestion: true
         });
-
-        console.log(this.state.quiz);
     }
 
     addQuestionToQuiz = (newQuestion: any) => {
-        this.setState(prevState => ({
+        this.setState(() => ({
             quiz: {
-                ...prevState.quiz,
-                questions: [...prevState.quiz.questions, newQuestion]
-            }
+                ...this.state.quiz,
+                questions: [...this.state.quiz.questions, newQuestion]
+            },
         }));
-        console.log(this.state.quiz);
+        setTimeout(() => {
+            console.log(this.state.quiz);
+        }, 1000);
     }
 
     render() {
         const { title, description, author, media } = this.state.quiz;
-        const showAddQuestion = this.state.showAddQuestion;
         return (
             <>
                 <Card title="Create a new MuseQuest">
@@ -120,7 +115,7 @@ class CreateMQ extends Component<{}, CreateMQState> {
                 //pass amount of questions to AddQuestion component
                     <AddQuestion 
                         addQuestion={this.addQuestionToQuiz}
-                        questionCount={this.state.quiz.questions.length}
+                        questionCount={Number(this.state.quiz.questions.length)}
                     />
                 }
             </>

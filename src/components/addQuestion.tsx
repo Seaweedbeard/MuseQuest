@@ -9,7 +9,7 @@ interface QuizQuestion {
     imageurl?: string; // can be added into the question with <> tags
     videourl?: string;
     audiourl?: string;
-    answertype: string;
+    type: string;
     answers: Array<{
         answer: string;
         correct: boolean;
@@ -41,7 +41,7 @@ class AddQuestion extends Component<AddQuestionProps, AddQuestionState> {
         this.state = {
             question: "",
             type: "text",
-            answers: [{ answer: "", correct: false}],
+            answers: [],
             answerTypes: [
                 "text", //Text
                 "image",  //url
@@ -55,7 +55,7 @@ class AddQuestion extends Component<AddQuestionProps, AddQuestionState> {
                 "piano", //A piano keyboard
                 "keypad", //A keypad
                 "sheet music", //A bar of sheet music
-                "tempo", //A tempo slider
+                "tempo", //A vertical metronome
                 "notepad", //A keypad but with the music notes A-G
                 "lock" //A 3-4 digit code
             ]
@@ -89,12 +89,22 @@ class AddQuestion extends Component<AddQuestionProps, AddQuestionState> {
 
     // Methods to manage answers...
 
-    submitQuestion = () => {
-        this.props.addQuestion({
-            question: this.state.question,
-            answers: this.state.answers,
-            answertype: "text"
-        });
+    submitQuestion = (newAnswer: any) => {
+        this.setState(prevState => ({
+            answers: [...prevState.answers, newAnswer]
+        }));
+        setTimeout(() => {
+            this.props.addQuestion({
+                question: this.state.question,
+                type: this.state.type,
+                answers: this.state.answers
+            });
+            this.setState({
+                question: "",
+                type: "text",
+                answers: []
+            });
+        }, 100);
     }
 
     renderFieldComponent = () => {
@@ -115,7 +125,7 @@ class AddQuestion extends Component<AddQuestionProps, AddQuestionState> {
 
     render() {
         return (
-            <Card title={"Question " + this.props.questionCount}>
+            <Card title={"Question " + (Number(this.props.questionCount) + 1)}>
                 <Form.Input
                     label="Question"
                     placeholder="Write your question here"
