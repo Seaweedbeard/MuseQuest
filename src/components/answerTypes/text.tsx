@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { Alert, Button, Card, Form } from '../../widgets';
 
 interface QuizAnswer {
-    answer: string | number;
+    answer: string;
     correct: boolean;
 }
 

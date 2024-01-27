@@ -3,6 +3,7 @@ import { Component } from 'react';
 import { Alert, Button, Card, Form } from '../widgets';
 import textInput from '../components/answerTypes/text';
 import numberInput from '../components/answerTypes/number';
+import radioInput from './answerTypes/radio';
 
 interface QuizQuestion {
     question: string;
@@ -57,7 +58,8 @@ class AddQuestion extends Component<AddQuestionProps, AddQuestionState> {
                 "sheet music", //A bar of sheet music
                 "tempo", //A vertical metronome
                 "notepad", //A keypad but with the music notes A-G
-                "lock" //A 3-4 digit code
+                "lock", //A 3-4 digit code
+                "radio" //Radio buttons
             ]
         };
     }
@@ -77,7 +79,8 @@ class AddQuestion extends Component<AddQuestionProps, AddQuestionState> {
         "sheet music": "sheetMusicInput",
         "tempo": "tempoInput",
         "notepad": "notepadInput",
-        "lock": "lockInput"
+        "lock": "lockInput",
+        "radio": radioInput
     }
     handleQuestionChange = (event: any) => {
         this.setState({ question: event.target.value });

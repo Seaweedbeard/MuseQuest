@@ -9,7 +9,6 @@ interface QuizQuestion {
     answers: Array<{
         answer: string;
         correct: boolean;
-        type: string;
     }>;
 }
 
