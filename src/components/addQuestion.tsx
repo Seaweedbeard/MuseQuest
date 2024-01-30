@@ -4,6 +4,7 @@ import { Alert, Button, Card, Form } from '../widgets';
 import textInput from '../components/answerTypes/text';
 import numberInput from '../components/answerTypes/number';
 import radioInput from './answerTypes/radio';
+import multipleChoiceInput from    './answerTypes/multiplechoice';
 
 interface QuizQuestion {
     question: string;
@@ -69,7 +70,7 @@ class AddQuestion extends Component<AddQuestionProps, AddQuestionState> {
         "image": "imageInput",
         "video": "videoInput",
         "audio": "audioInput",
-        "multiple choice": "multipleChoiceInput",
+        "multiple choice": multipleChoiceInput,
         "number": numberInput,
         "range": "rangeInput",
         "date": "dateInput",
