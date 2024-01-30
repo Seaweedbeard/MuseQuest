@@ -34,9 +34,17 @@ class NumberInput extends Component<AddAnswerProps, AddQuestionState> {
     }
 
     submitAnswer = () => {
-        this.props.addAnswer(
-            this.state.answers
-        );
+        try {
+            this.props.addAnswer(
+                this.state.answers
+            );
+            this.setState({ answers: {
+                answer: 0,
+                correct: true
+            }});
+        } catch (error: any) {
+            alert(error.message);
+        }
     }
 
     render() {

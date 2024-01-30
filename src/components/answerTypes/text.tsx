@@ -34,13 +34,17 @@ class TextInput extends Component<AddAnswerProps, AddQuestionState> {
     }
 
     submitAnswer = () => {
-        this.props.addAnswer(
-            this.state.answers
-        );
-        this.setState({ answers: {
-            answer: "",
-            correct: true
-        }});
+        try {
+            this.props.addAnswer(
+                this.state.answers
+            );
+            this.setState({ answers: {
+                answer: "",
+                correct: true
+            }});
+        } catch (error: any) {
+            alert(error.message);
+        }
     }
 
     render() {

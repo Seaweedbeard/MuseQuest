@@ -14,7 +14,7 @@ interface QuizQuestion {
     type: string;
     answers: Array<{
         answer: string;
-        correct: boolean;
+        correct: boolean | number[];
     }>;
 }
 
@@ -28,12 +28,16 @@ interface AddQuestionState {
     type: string;
     answers: Array<{
         answer: string;
-        correct: boolean;
+        correct: boolean | number[];
     }>;
     answerTypes: string[];
 }
 
 interface typeMap {
+    [key: string]: any;
+}
+
+interface answers {
     [key: string]: any;
 }
 
@@ -83,6 +87,7 @@ class AddQuestion extends Component<AddQuestionProps, AddQuestionState> {
         "lock": "lockInput",
         "radio": radioInput
     }
+
     handleQuestionChange = (event: any) => {
         this.setState({ question: event.target.value });
     }
@@ -93,22 +98,37 @@ class AddQuestion extends Component<AddQuestionProps, AddQuestionState> {
 
     // Methods to manage answers...
 
-    submitQuestion = (newAnswer: any) => {
+    submitQuestion = async (newAnswer: any) => {
+        console.log(newAnswer);
         this.setState(prevState => ({
             answers: [...prevState.answers, newAnswer]
-        }));
-        setTimeout(() => {
+        }), () => { 
+            console.log(this.state.answers);
+            console.log(this.state.answers[0].correct);
+            console.log(this.state.answers[0].answer)
+            if(this.state.question === "") {
+                throw new Error("Missing title");
+            }
+            if(!this.state.answers.some(answer => answer.correct)) {
+                throw new Error("Please select at least 1 correct answer");
+            }
+            if(!this.state.answers.every(answer => answer.answer !== "")) {
+                throw new Error("Please leave no answers blank");
+            }
             this.props.addQuestion({
                 question: this.state.question,
                 type: this.state.type,
-                answers: this.state.answers
+                answers: this.state.answers.map(answer => ({
+                    answer: answer.answer,
+                    correct: Array.isArray(answer.correct) ? answer.correct : true
+                }))
             });
             this.setState({
                 question: "",
                 type: "text",
                 answers: []
             });
-        }, 100);
+        });
     }
 
     renderFieldComponent = () => {

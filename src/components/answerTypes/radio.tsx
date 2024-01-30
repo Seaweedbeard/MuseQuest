@@ -3,8 +3,8 @@ import { Component } from 'react';
 import { Alert, Button, Card, Form } from '../../widgets';
 
 interface QuizAnswer {
-    answers: string[];  // Array of answers
-    correct: number;    // Index of the correct answer
+    answer: string[];  // Array of answer
+    correct: number[];    // Index of the correct answer
 }
 
 interface AddAnswerProps {
@@ -12,50 +12,50 @@ interface AddAnswerProps {
 }
 
 interface RadioInputState {
-    answers: string[];  // Array to hold answers
-    correct: number;    // Index of the correct answer
+    answer: string[];  // Array to hold answer
+    correct: number[];    // Index of the correct answer
 }
 
 class radioInput extends Component<AddAnswerProps, RadioInputState> {
     constructor(props: AddAnswerProps) {
         super(props);
         this.state = {
-            answers: [],
-            correct: -1 // -1 indicates no selection
+            answer: [],
+            correct: [0]
         };
     }
 
     handleAnswerChange = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        const updatedAnswers = [...this.state.answers];
-        updatedAnswers[index] = event.target.value;
-        this.setState({ answers: updatedAnswers });
+        const updatedanswer = [...this.state.answer];
+        updatedanswer[index] = event.target.value;
+        this.setState({ answer: updatedanswer });
     }
 
     setCorrectAnswer = (index: number) => {
-        this.setState({ correct: index });
+        this.setState({ correct: [index] });
     }
 
     submitAnswer = () => {
-        if (this.state.correct === -1) {
-            alert("Please select the correct answer");
-            return;
+        try {
+            this.props.addAnswer({
+                answer: this.state.answer,
+                correct: this.state.correct
+            });
+        } catch (error: any) {
+            alert(error.message);
         }
-        this.props.addAnswer({
-            answers: this.state.answers,
-            correct: this.state.correct
-        });
     }
 
     render() {
         return (
             <div>
-                {this.state.answers.map((answer, index) => (
+                {this.state.answer.map((answer, index) => (
                     <div key={index}>
                         <input 
                             type="radio" 
                             name="correctAnswer" 
                             onChange={() => this.setCorrectAnswer(index)}
-                            checked={this.state.correct === index}
+                            checked={this.state.correct[0] === index}
                         />
                         <input 
                             type="text" 
@@ -65,20 +65,18 @@ class radioInput extends Component<AddAnswerProps, RadioInputState> {
                     </div>
                 ))}
                 <button onClick={() => {
-                    if(this.state.answers.length < 5) {
-                        this.setState(prevState => ({ 
-                            answers: [...prevState.answers, ''],
-                            correct: prevState.correct === -1 ? 0 : prevState.correct 
+                    if(this.state.answer.length < 5) {
+                        this.setState(prevState => ({
+                            answer: [...prevState.answer, ""]
                         }));
                     }
                 }}>
                     Add Option
                 </button>
                 <button onClick={() => {
-                    if(this.state.answers.length > 1) {
-                        this.setState(prevState => ({ 
-                            answers: prevState.answers.slice(0, -1),
-                            correct: prevState.correct === prevState.answers.length - 1 ? prevState.correct - 1 : prevState.correct 
+                    if(this.state.answer.length > 1) {
+                        this.setState(prevState => ({
+                            answer: prevState.answer.slice(0, -1)
                         }));
                     }
                 }}>

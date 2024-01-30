@@ -68,10 +68,9 @@ class CreateMQ extends Component<{}, CreateMQState> {
                 ...this.state.quiz,
                 questions: [...this.state.quiz.questions, newQuestion]
             },
-        }));
-        setTimeout(() => {
+        }), () => {
             console.log(this.state.quiz);
-        }, 1000);
+        });
     }
 
     render() {

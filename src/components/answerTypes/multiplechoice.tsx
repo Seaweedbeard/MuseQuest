@@ -2,7 +2,7 @@ import * as react from 'react';
 import { Component } from 'react';
 
 interface QuizAnswer {
-    answers: string[];
+    answer: string[];
     correct: number[];
 }
 
@@ -11,7 +11,7 @@ interface AddAnswerProps {
 }
 
 interface RadioInputState {
-    answers: string[];  // Array to hold answers
+    answer: string[];  // Array to hold answers
     correct: number[];
 }
 
@@ -19,15 +19,15 @@ class multipleChoiceInput extends Component<AddAnswerProps, RadioInputState> {
     constructor(props: AddAnswerProps) {
         super(props);
         this.state = {
-            answers: [],
+            answer: [],
             correct: [] // -1 indicates no selection
         };
     }
 
     handleAnswerChange = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        const updatedAnswers = [...this.state.answers];
+        const updatedAnswers = [...this.state.answer];
         updatedAnswers[index] = event.target.value;
-        this.setState({ answers: updatedAnswers });
+        this.setState({ answer: updatedAnswers });
     }
 
     setCorrectAnswer = (index: number) => {
@@ -41,20 +41,20 @@ class multipleChoiceInput extends Component<AddAnswerProps, RadioInputState> {
     }
 
     submitAnswer = () => {
-        if (this.state.correct.length < 1) {
-            alert("Please select at least 1 correct answer");
-            return;
+        try {
+            this.props.addAnswer({
+                answer: this.state.answer,
+                correct: this.state.correct
+            });
+        } catch (error: any) {
+            alert(error.message);
         }
-        this.props.addAnswer({
-            answers: this.state.answers,
-            correct: this.state.correct
-        });
     }
 
     render() {
         return (
             <div>
-                {this.state.answers.map((answer, index) => (
+                {this.state.answer.map((answer, index) => (
                     <div key={index}>
                         <input 
                             type="checkbox" 
@@ -70,18 +70,18 @@ class multipleChoiceInput extends Component<AddAnswerProps, RadioInputState> {
                     </div>
                 ))}
                 <button onClick={() => {
-                    if(this.state.answers.length < 10) {
-                        this.setState(prevState => ({ answers: [...prevState.answers, ""] }));
+                    if(this.state.answer.length < 10) {
+                        this.setState(prevState => ({ answer: [...prevState.answer, ""] }));
                     }
                 }}>
                     Add Option
                 </button>
                 <button onClick={() => {
-                    if(this.state.answers.length > 1) {
-                        this.setState(prevState => ({ answers: prevState.answers.slice(0, -1) }),
+                    if(this.state.answer.length > 1) {
+                        this.setState(prevState => ({ answer: prevState.answer.slice(0, -1) }),
                             () => {
                                 this.state.correct.forEach((correct, index) => {
-                                    if (correct >= this.state.answers.length) {
+                                    if (correct >= this.state.answer.length) {
                                         this.setState(prevState => ({ correct: prevState.correct.filter(i => i !== correct) }));
                                     }
                                 });
