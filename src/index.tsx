@@ -9,7 +9,7 @@ import NavBar from './components/navbar';
 import CreateMQ from './sites/CreateMQ';
 import BrowseMQ from './sites/BrowseMQ';
 import HowTo from './sites/HowTo';
-import Contact from './sites/Contact';
+import About from './sites/About';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -24,7 +24,7 @@ if(root) {
             <Route path={"/create"} element={<CreateMQ/>} />
             <Route path={"/browse"} element={<BrowseMQ/>} />
             <Route path={"/howto"} element={<HowTo/>} />
-            <Route path={"/contact"} element={<Contact/>} />
+            <Route path={"/about"} element={<About/>} />
           </Routes>
         </>
       </BrowserRouter>
