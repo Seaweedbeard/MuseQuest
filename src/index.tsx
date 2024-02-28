@@ -8,7 +8,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NavBar from './components/navbar';
 import CreateMQ from './sites/CreateMQ';
 import BrowseMQ from './sites/BrowseMQ';
-import HowTo from './sites/HowTo';
+import FAQ from './sites/FAQ';
 import About from './sites/About';
 
 const root = ReactDOM.createRoot(
@@ -23,7 +23,7 @@ if(root) {
             <Route path="/" element={<LandingPage/>} />
             <Route path={"/create"} element={<CreateMQ/>} />
             <Route path={"/browse"} element={<BrowseMQ/>} />
-            <Route path={"/howto"} element={<HowTo/>} />
+            <Route path={"/faq"} element={<FAQ/>} />
             <Route path={"/about"} element={<About/>} />
           </Routes>
         </>

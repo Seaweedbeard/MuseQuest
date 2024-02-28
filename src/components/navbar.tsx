@@ -16,7 +16,7 @@ class NavBar extends Component {
                         <div className="navbar-nav">
                         <NavLink className="nav-link" to="/create">Create MuseQuests</NavLink>
                         <NavLink className="nav-link" to="/browse">Browse MuseQuests</NavLink>
-                        <NavLink className="nav-link" to="/howto">How-To</NavLink>
+                        <NavLink className="nav-link" to="/faq">FAQ</NavLink>
                         <NavLink className="nav-link" to="/about">About</NavLink>
                         {/* FIX NAVLINKS AND LAYOUT LATER */}
                         </div>

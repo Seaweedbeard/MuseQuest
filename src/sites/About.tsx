@@ -16,6 +16,7 @@ class About extends Component {
                         <ul className={listStyles.List}>
                             <li>MuseQuest is a platform for creating and sharing treasure hunts, quizzes and other interactive experiences.</li>
                             <li>The platform is designed to be user-friendly and accessible for all ages.</li>
+                            <li>Developed based on demand witnessed at Trondheim Kommunale Kulturskole</li>
                         </ul>
                     </Card>
                     <br/>
@@ -27,7 +28,7 @@ class About extends Component {
                                         <a href="mailto:ruben.bjorkoy@gmail.com">Ruben Vega Bjørkøy</a>
                                     </div>
                                     <div className={divStyles.right}>
-                                        Founder, Master, Developer, Unofficial and Unlicensed Musician
+                                        Founder, Master, Developer, Unofficial and Unlicensed Musician, Student at NTNU
                                     </div>
                                 </li>
                                 {/* <li><a href="mailto:halvor@njastad.no">Halvor Njåstad</a></li> I have been expecting you*/}
