@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { Alert, Button, Card, Form } from '../widgets';
 import AddQuestion from '../components/addQuestion';
+import textStyles from "../cssModules/textStyles.module.css";
 
 interface QuizQuestion {
     question: string;
@@ -78,6 +79,7 @@ class CreateMQ extends Component<{}, CreateMQState> {
         return (
             <>
                 <Card title="Create a new MuseQuest">
+                    <h1 className={textStyles.center}>[ Create ]</h1>
                     Title:
                     <Form.Input
                         label="Title"

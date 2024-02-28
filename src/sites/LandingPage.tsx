@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Button, Card } from '../widgets';
 import { useNavigate } from 'react-router-dom';
+import textStyles from "../cssModules/textStyles.module.css";
 
 function LandingPage() {    
 
@@ -12,6 +13,7 @@ function LandingPage() {
     return (
         <>
             <Card title="Welcome to MuseQuest - A free learning tool for everyone">
+                <h1 className={textStyles.center}>[ Welcome ]</h1>
                 <p>
                     MuseQuest is a storytelling quiz platform that
                     aims to make both teaching and learning 
