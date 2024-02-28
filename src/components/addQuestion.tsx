@@ -5,6 +5,7 @@ import textInput from '../components/answerTypes/text';
 import numberInput from '../components/answerTypes/number';
 import radioInput from './answerTypes/radio';
 import multipleChoiceInput from    './answerTypes/multiplechoice';
+import dateInput from './answerTypes/date';
 
 interface QuizQuestion {
     question: string;
@@ -77,7 +78,7 @@ class AddQuestion extends Component<AddQuestionProps, AddQuestionState> {
         "multiple choice": multipleChoiceInput,
         "number": numberInput,
         "range": "rangeInput",
-        "date": "dateInput",
+        "date": dateInput,
         "rotary": "rotaryInput",
         "piano": "pianoInput",
         "keypad": "keypadInput",

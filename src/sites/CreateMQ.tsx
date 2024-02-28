@@ -51,7 +51,7 @@ class CreateMQ extends Component<{}, CreateMQState> {
 
     handleNext = () => {
         const { title, description, author } = this.state.quiz;
-        if(title === "" || description === "" || author === "") {
+        if(title === "" && description === "" && author === "") {
             alert("Please fill out all non-optional fields.");
             return;
         }
@@ -78,6 +78,7 @@ class CreateMQ extends Component<{}, CreateMQState> {
         return (
             <>
                 <Card title="Create a new MuseQuest">
+                    Title:
                     <Form.Input
                         label="Title"
                         placeholder="Create a captivating title"
@@ -85,12 +86,16 @@ class CreateMQ extends Component<{}, CreateMQState> {
                         value={title}
                         onChange={(event) => this.handleChange(event, 'title')}
                     />
+                    <br/>
+                    Description:
                     <Form.Textarea
                         label="Description"
                         placeholder="Extend your title with an interesting description"
                         value={description}
                         onChange={(event) => this.handleChange(event, 'description')}
                     />
+                    <br/>
+                    Author:
                     <Form.Input
                         label="Author"
                         placeholder="Enter author name (Your name or your group's name)"
@@ -98,6 +103,8 @@ class CreateMQ extends Component<{}, CreateMQState> {
                         value={author}
                         onChange={(event) => this.handleChange(event, 'author')}
                     />
+                    <br/>
+                    Image:
                     <Form.Input
                         label="Image"
                         placeholder="Enter image url or video url (Optional)"
